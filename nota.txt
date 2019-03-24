@@ -1,0 +1,2 @@
+Para un correcto funcionamiento de los programas, se debe agregar una carpeta
+llamada benchmark con los archivos .txt correspondientes dentro de esta.
