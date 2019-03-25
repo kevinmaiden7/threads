@@ -13,9 +13,8 @@ int * getVector(char *fileName, int numVariables){
 	int *vector, maxLongitud = 10;
 	char linea[maxLongitud];
 	vector = (int *)malloc(numVariables*sizeof(int));
-	for(int i=0; fgets(linea, maxLongitud, file) != NULL; i++){
+	for(int i=0; fgets(linea, maxLongitud, file) != NULL; i++)
 		vector[i] = atoi(linea);
-	}
 	fclose(file);
 	return(vector);
 }

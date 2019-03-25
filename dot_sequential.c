@@ -15,8 +15,9 @@ int productoPunto(int vector1[], int vector2[]);
 char mensajeFinalizacion[MAX_LENGTH];
 char file1[MAX_LENGTH] = "./benchmark/", file2[MAX_LENGTH] = "./benchmark/";
 int numVariables, *vector1, *vector2;
+struct timeval start, end;
 
-// Función main
+	// Función main
 int main(int argc, char *argv[])
 {
 	if (argc != 4)
@@ -36,17 +37,12 @@ int main(int argc, char *argv[])
 		terminarPrograma();
 	}
 	printf("Se cargaron correctamente los vectores\n");
-	// Calcular el producto punto
-	struct timeval start, end;
 	gettimeofday(&start, NULL);
-
-	productoPunto(vector1,vector2);
-
+	int dot_product = productoPunto(vector1,vector2);
 	gettimeofday(&end, NULL);
-	long seconds =(end.tv_sec - start.tv_sec);
-	long micros =((seconds *1000000)+ end.tv_usec) - (start.tv_usec);
-	printf("Tiempo ejecutandose %ld\n", micros);
-
+	double time = (end.tv_sec - start.tv_sec)*1000 + (end.tv_usec - start.tv_usec)/1000.0;
+	printf("Dot product result = %d\n", dot_product);
+ 	printf("time elapsed (milliseconds): %.2lf\n", time);
 	return (0);
 }
 
@@ -60,20 +56,16 @@ void terminarPrograma()
 /*
  * Function:       productoPunto
  * Purpose:        Realizar producto punto entre dos vectores
- * In arg:         vectores 
+ * In arg:         Vectores 
  * Global in vars: numVariables
  * Global out var: dot_product
  */
-int productoPunto(int vector1[], int vector2[])
-{
+int productoPunto(int vector1[], int vector2[]){
 	int i, product;
 	int dot_product = 0;
-	for (i = 0; i <= numVariables-1; i++)
-	{
+	for (i = 0; i < numVariables; i++){
 		product = vector1[i] * vector2[i];
 		dot_product = dot_product + product;
 	}
-	printf("The integer is %d\n", dot_product);
-
-	return (dot_product);
+	return(dot_product);
 }
