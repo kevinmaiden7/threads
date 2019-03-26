@@ -18,10 +18,8 @@ int numVariables, *vector1, *vector2;
 struct timeval start, end;
 
 	// Función main
-int main(int argc, char *argv[])
-{
-	if (argc != 4)
-	{
+int main(int argc, char *argv[]){
+	if (argc != 4){
 		strcpy(mensajeFinalizacion, "Argumentos de entrada no validos");
 		strcat(mensajeFinalizacion, "\nFormato permitido: ./sequential.out <numVariables> <file1> <file2>");
 		terminarPrograma();
@@ -31,15 +29,14 @@ int main(int argc, char *argv[])
 	strcat(file2, argv[3]);
 	vector1 = getVector(file1, numVariables);
 	vector2 = getVector(file2, numVariables);
-	if (vector1 == 0 || vector2 == 0)
-	{
+	if (vector1 == 0 || vector2 == 0){
 		strcpy(mensajeFinalizacion, "No se pudieron cargar correctamente los vectores");
 		terminarPrograma();
 	}
 	printf("Se cargaron correctamente los vectores\n");
-	gettimeofday(&start, NULL);
+	gettimeofday(&start, NULL); // Iniciando toma de tiempo
 	int dot_product = productoPunto(vector1,vector2);
-	gettimeofday(&end, NULL);
+	gettimeofday(&end, NULL); // Finalizando toma de tiempo
 	double time = (end.tv_sec - start.tv_sec)*1000 + (end.tv_usec - start.tv_usec)/1000.0;
 	printf("Dot product result = %d\n", dot_product);
  	printf("time elapsed (milliseconds): %.2lf\n", time);
