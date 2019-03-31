@@ -34,24 +34,25 @@ int main(int argc, char *argv[]){
 		strcat(mensajeFinalizacion, "\nFormato permitido: ./parallel.out <numVariables> <file1> <file2> <numHilos>");
 		terminarPrograma();
 	}
-	int hilo;
-	pthread_t *hilo_handler;
+
 	numVariables = atoi(argv[1]);
-	strcat(file1, argv[2]);
-	strcat(file2, argv[3]);
 	numHilos = atoi(argv[4]);
 	
 	if((numVariables % numHilos) != 0){ // Validación de la división de tareas
 		strcpy(mensajeFinalizacion, "El numero de iteraciones (variables) no se puede dividir de manera exacta por el numero de hilos");
 		terminarPrograma();
 	}
+	strcat(file1, argv[2]);
+	strcat(file2, argv[3]);
 	vector1 = getVector(file1, numVariables);
 	vector2 = getVector(file2, numVariables);
-	if (vector1 == 0 || vector2 == 0){
+	if(vector1 == 0 || vector2 == 0){
 		strcpy(mensajeFinalizacion, "No se pudieron cargar correctamente los vectores");
 		terminarPrograma();
 	}
 	printf("Se cargaron correctamente los vectores\n");
+	int hilo;
+	pthread_t *hilo_handler;
 	hilo_handler = malloc(numHilos * sizeof(pthread_t)); // Arreglo de hilos
 	int *resultadosPorHilo = (int *)malloc(numHilos*sizeof(int));  // Arreglo de enteros para guardar los resultados parciales que calcula cada hilo
 	Rango rangos[numHilos]; // Arreglo de variables tipo Rango(struct) para delimitar el rango de ejecucion de cada hilo
@@ -109,8 +110,7 @@ void calcularRangos(Rango *rangos, int numVariables, int numHilos){
 */
 void* productoPunto(void* parameters){
 	Rango *rango = (Rango *) parameters;
-	int i, product;
-	int dot_product = 0;
+	int i, product, dot_product = 0;
 	for (i = rango->inicio; i <= rango->final; i++){
 		product = vector1[i] * vector2[i];
 		dot_product = dot_product + product;
